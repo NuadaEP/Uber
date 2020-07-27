@@ -16,6 +16,7 @@
     "react": "16.13.1",
     "react-native": "0.63.2",
     "react-native-gesture-handler": "^1.7.0",
+    "react-native-google-places-autocomplete": "^1.8.0",
     "react-native-maps": "0.27.1",
     "react-navigation": "^4.4.0",
     "reactotron-react-native": "^5.0.0",
