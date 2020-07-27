@@ -19,7 +19,7 @@ function Map() {
       () => {},
       {
         timeout: 2000,
-        enableHighAccuracy: true,
+        enableHighAccuracy: false,
         maximumAge: 1000,
       },
     );
