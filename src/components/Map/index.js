@@ -4,7 +4,7 @@ import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 import Search from '../Search';
-import Destination from '../Destination';
+import Directions from '../Directions';
 
 function Map() {
   const [region, setRegion] = useState(null);
@@ -18,7 +18,7 @@ function Map() {
     setDestination({
       latitude,
       longitude,
-      title: data.structured_formtting.main_text,
+      title: data.structured_formatting.main_text,
     });
   }, []);
 
@@ -49,7 +49,7 @@ function Map() {
         showsUserLocation
         loadingEnabled>
         {destination && (
-          <Destination
+          <Directions
             destination={destination}
             origin={region}
             onReady={() => {}}

@@ -7,7 +7,7 @@ function Directions({destination, origin, onReady}) {
       destination={destination}
       origin={origin}
       onReady={onReady}
-      apikey="AIzaSyC0gAJ33Bp1R4CGX8ytZh-cIEU-1JulKj0"
+      apikey="AIzaSyCD_811GmrjMKLCC2_kqKKB_AfgZpfbk_8"
       strokeWidth={3}
       strokeColor="#222"
     />

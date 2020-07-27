@@ -5,7 +5,7 @@ import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete'
 function Search({onLocationSelected}) {
   const query = useMemo(
     () => ({
-      key: 'AIzaSyC0gAJ33Bp1R4CGX8ytZh-cIEU-1JulKj0',
+      key: 'AIzaSyCD_811GmrjMKLCC2_kqKKB_AfgZpfbk_8',
       language: 'pt',
     }),
     [],
