@@ -3,6 +3,8 @@ import {View} from 'react-native';
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
+import Search from '../Search';
+
 function Map() {
   const [region, setRegion] = useState(null);
 
@@ -33,6 +35,8 @@ function Map() {
         showsUserLocation
         loadingEnabled
       />
+
+      <Search />
     </View>
   );
 }
