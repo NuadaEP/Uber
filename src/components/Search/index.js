@@ -52,9 +52,25 @@ function Search() {
           borderColor: '#ddd',
           fontSize: 18,
         },
-        listView: {},
-        description: {},
-        row: {},
+        listView: {
+          borderWidth: 1,
+          borderColor: '#ddd',
+          backgroundColor: '#fff',
+          marginHorizontal: 20,
+          elevation: 5,
+          shadowColor: '#000',
+          shadowOpacity: 0.1,
+          shadowOffset: {x: 0, y: 0},
+          shadowRadius: 15,
+          marginTop: 10,
+        },
+        description: {
+          fontSize: 16,
+        },
+        row: {
+          padding: 10,
+          heigth: 58,
+        },
       }}
     />
   );
