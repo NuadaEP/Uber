@@ -1,12 +1,26 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {View} from 'react-native';
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 import Search from '../Search';
+import Destination from '../Destination';
 
 function Map() {
   const [region, setRegion] = useState(null);
+  const [destination, setDestination] = useState(null);
+
+  const handleLocationSelected = useCallback((data, {geometry}) => {
+    const {
+      location: {lat: latitude, lng: longitude},
+    } = geometry;
+
+    setDestination({
+      latitude,
+      longitude,
+      title: data.structured_formtting.main_text,
+    });
+  }, []);
 
   useEffect(() => {
     Geolocation.getCurrentPosition(
@@ -33,10 +47,17 @@ function Map() {
         style={{flex: 1}}
         region={region}
         showsUserLocation
-        loadingEnabled
-      />
+        loadingEnabled>
+        {destination && (
+          <Destination
+            destination={destination}
+            origin={region}
+            onReady={() => {}}
+          />
+        )}
+      </MapView>
 
-      <Search />
+      <Search onLocationSelected={handleLocationSelected} />
     </View>
   );
 }
