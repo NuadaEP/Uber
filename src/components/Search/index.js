@@ -2,7 +2,7 @@ import React, {useMemo} from 'react';
 import {Platform} from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
-function Search() {
+function Search({onLocationSelected}) {
   const query = useMemo(
     () => ({
       key: 'AIzaSyCLdoVS9hgWcjWXjS9BzyNN2LM3HT1n3G4',
@@ -81,7 +81,7 @@ function Search() {
     <GooglePlacesAutocomplete
       placeholder="Para onde?"
       placeholderTextColor="#333"
-      onPress={() => {}}
+      onPress={onLocationSelected}
       query={query}
       textInputProps={textInputProps}
       fetchDetails
