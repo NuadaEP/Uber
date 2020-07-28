@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback, useRef} from 'react';
-import {View} from 'react-native';
+import {View, PermissionsAndroid} from 'react-native';
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
@@ -11,6 +11,18 @@ function Map() {
 
   const [region, setRegion] = useState(null);
   const [destination, setDestination] = useState(null);
+
+  const requestLocationPermission = useCallback(async () => {
+    await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      {
+        title: 'Uber Clone Location Permission',
+        message: 'Uber Clone needs access to your location',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'OK',
+      },
+    );
+  }, []);
 
   const handleLocationSelected = useCallback((data, {geometry}) => {
     const {
@@ -25,25 +37,29 @@ function Map() {
   }, []);
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(
-      ({coords: {latitude, longitude}}) => {
-        setRegion({
-          latitude,
-          longitude,
-          latitudeDelta: 0.0149,
-          longitudeDelta: 0.0134,
-        });
-      },
-      (error) => {
-        console.log('error', error);
-      },
-      {
-        timeout: 2000,
-        enableHighAccuracy: false,
-        maximumAge: 1000,
-      },
-    );
-  }, []);
+    const successCase = ({coords: {latitude, longitude}}) => {
+      setRegion({
+        latitude,
+        longitude,
+        latitudeDelta: 0.0149,
+        longitudeDelta: 0.0134,
+      });
+    };
+
+    const errorCase = (error) => {
+      console.log('error', error);
+    };
+
+    const config = {
+      timeout: 2000,
+      enableHighAccuracy: false,
+      maximumAge: 1000,
+    };
+
+    Geolocation.getCurrentPosition(successCase, errorCase, config);
+
+    requestLocationPermission();
+  }, [requestLocationPermission]);
 
   return (
     <View style={{flex: 1}}>
@@ -58,7 +74,6 @@ function Map() {
             destination={destination}
             origin={region}
             onReady={(result) => {
-              console.log(mapView);
               mapView.current.fitToCoordinates(result.coordinates);
             }}
           />
