@@ -22,6 +22,16 @@ function Map() {
         buttonPositive: 'OK',
       },
     );
+
+    await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+      {
+        title: 'Uber Clone Location Permission',
+        message: 'Uber Clone needs access to your location',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'OK',
+      },
+    );
   }, []);
 
   const handleLocationSelected = useCallback((data, {geometry}) => {
@@ -52,7 +62,7 @@ function Map() {
 
     const config = {
       timeout: 2000,
-      enableHighAccuracy: false,
+      enableHighAccuracy: true,
       maximumAge: 1000,
     };
 
