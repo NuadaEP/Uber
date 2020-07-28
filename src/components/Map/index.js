@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState, useCallback, useRef} from 'react';
 import {View} from 'react-native';
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
@@ -7,6 +7,8 @@ import Search from '../Search';
 import Directions from '../Directions';
 
 function Map() {
+  const mapView = useRef(null);
+
   const [region, setRegion] = useState(null);
   const [destination, setDestination] = useState(null);
 
@@ -49,12 +51,16 @@ function Map() {
         style={{flex: 1}}
         region={region}
         showsUserLocation
-        loadingEnabled>
+        loadingEnabled
+        ref={mapView}>
         {destination && (
           <Directions
             destination={destination}
             origin={region}
-            onReady={() => {}}
+            onReady={(result) => {
+              console.log(mapView);
+              mapView.current.fitToCoordinates(result.coordinates);
+            }}
           />
         )}
       </MapView>
