@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback, useRef} from 'react';
-import {View, PermissionsAndroid} from 'react-native';
+import {View} from 'react-native';
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
@@ -11,28 +11,6 @@ function Map() {
 
   const [region, setRegion] = useState(null);
   const [destination, setDestination] = useState(null);
-
-  const requestLocationPermission = useCallback(async () => {
-    await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        title: 'Uber Clone Location Permission',
-        message: 'Uber Clone needs access to your location',
-        buttonNegative: 'Cancel',
-        buttonPositive: 'OK',
-      },
-    );
-
-    await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
-      {
-        title: 'Uber Clone Location Permission',
-        message: 'Uber Clone needs access to your location',
-        buttonNegative: 'Cancel',
-        buttonPositive: 'OK',
-      },
-    );
-  }, []);
 
   const handleLocationSelected = useCallback((data, {geometry}) => {
     const {
@@ -61,15 +39,13 @@ function Map() {
     };
 
     const config = {
+      enableHighAccuracy: false,
       timeout: 2000,
-      enableHighAccuracy: true,
-      maximumAge: 1000,
+      maximumAge: 3600000,
     };
 
     Geolocation.getCurrentPosition(successCase, errorCase, config);
-
-    requestLocationPermission();
-  }, [requestLocationPermission]);
+  }, []);
 
   return (
     <View style={{flex: 1}}>
