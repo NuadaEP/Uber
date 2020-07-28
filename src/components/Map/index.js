@@ -32,7 +32,9 @@ function Map() {
           longitudeDelta: 0.0134,
         });
       },
-      () => {},
+      (error) => {
+        console.log('error', error);
+      },
       {
         timeout: 2000,
         enableHighAccuracy: false,

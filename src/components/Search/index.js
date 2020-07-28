@@ -1,8 +1,10 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import {Platform} from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 function Search({onLocationSelected}) {
+  const [searchFocused, setSearchFocused] = useState(false);
+
   const query = useMemo(
     () => ({
       key: 'AIzaSyCD_811GmrjMKLCC2_kqKKB_AfgZpfbk_8',
@@ -15,6 +17,12 @@ function Search({onLocationSelected}) {
     () => ({
       autoCapitalize: 'none',
       autoCorrect: false,
+      onFocus: () => {
+        setSearchFocused(true);
+      },
+      onBlur: () => {
+        setSearchFocused(false);
+      },
     }),
     [],
   );
@@ -87,6 +95,7 @@ function Search({onLocationSelected}) {
       fetchDetails
       enablePoweredByContainer={false}
       styles={style}
+      listViewDisplayed={searchFocused}
     />
   );
 }
